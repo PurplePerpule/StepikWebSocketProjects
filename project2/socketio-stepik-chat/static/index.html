@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Chat demo</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/static/lariska.js"></script>
+    <script src="/static/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <section class="screen active card" id="app">
+            Загружаем
+        </section>
+    </div>
+</main>
+
+<template id="selectroom">
+    <h1>Демо чат</h1>
+    <p>Выберите комнату</p>
+    <select class="alert alert-info block" id="user_room" class="block">
+        {{#each rooms}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    <p>Выберите имя</p>
+    <input type="text" class="alert alert-info block mb" id="user_name" placeholder="Например, Алиса"/>
+    <button class="tappable block" onclick="app.run('join')">Присоединиться</button>
+</template>
+
+<template id="chat">
+    <span class="back-link" onclick="app.run('back')">назад</span>
+    <h2>Комната: {{room}}</h2>
+
+    <div class="chat-messages">
+        {{#each messages}}
+        <p>{{this.author}}: {{this.text}}</p>
+        {{/each}}
+    </div>
+
+    <div class="message-form row">
+        <input class="alert info grow" type="text" id="user_message" placeholder="Введите сообщение">
+        <button class="form-button" onclick="app.run('send')">Отправить</button>
+    </div>
+</template>
+
+<template id="messages">
+    <div class="chat-messages">
+        {{#each messages}}
+        <p>{{this.name}}: {{this.text}}</p>
+        {{/each}}
+    </div>
+</template>
+
+<template id="disconnect">
+
+    <h1>Соединение с сервером потеряно, приложение пытается восстановить связь</h1>
+
+</template>
+
+</body>
+</html>

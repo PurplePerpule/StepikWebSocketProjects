@@ -1,0 +1,101 @@
+/* RESETS */
+
+* {
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    box-shadow: None;
+    font-size: 18px;
+}
+
+
+body {
+    background-color: #111;
+    height: 1vh;
+    font-family: arial, sans-serif;
+}
+
+/* BOX MODEL UTILITS */
+
+.container {
+    max-width: 480px;
+    margin: 0.5rem auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: .5rem;
+    border: 1px solid #ccc;
+    padding: 2rem;
+    color: #333;
+    min-height: .9vh;
+    position: relative;
+}
+
+.center {
+    text-align: center;
+}
+
+.block {
+    display: block;
+    width: 100%;
+}
+
+.mb {
+    margin-bottom: 2rem;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+    font-size: 2rem;
+}
+
+/* FORMS AND BUTTONS */
+
+button {
+    overflow: visible;
+    background: transparent;
+    border: none;
+    background-color: #0076FE;
+    border-radius: .25em;
+    cursor: pointer;
+    color: #fff;
+}
+
+
+.tappable {
+    background-color: #0076FE;
+    color: #fff;
+    padding: 1em;
+}
+
+.input-large {
+    font-size: 4rem;
+    text-align: center;
+    padding: .5rem;
+
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+/* COMPONENTS */
+
+
+.back-link {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    color: #666;
+    text-decoration: none;
+}
+
+.alert {
+    background-color: #F3F3F3;
+    padding: .75em .5em;
+    border-radius: 8px;
+}
+
+.alert.info {
+    background-color: #EAF2FD;
+}

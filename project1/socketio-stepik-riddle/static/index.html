@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Riddle demo</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="static/lariska.js"></script>
+    <script src="static/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/style.css"/>
+
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <section class="screen active card" id="app">
+            Загружаем
+        </section>
+    </div>
+</main>
+
+<!-- Шаблон для экрана Игра загружена -->
+<template id="standby">
+    <div class="center">
+        <h1>Игра в загадки</h1>
+        <p>Это демонстрационный стенд для проекта на основе socket.io мини-курса по работе с сокетами.</p>
+        <button class="tappable block" onclick="app.run('next')">Начать играть</button>
+    </div>
+</template>
+
+<!-- Шаблон для экрана Показа задачки -->
+<template id="showriddle">
+    <p class="alert">Ваш счет: {{score}}</p>
+    <p>Загадка {{riddle.number}}</p>
+    <p class="alert info">
+        {{riddle.text}}
+    </p>
+    <p>Ваша версия</p>
+    <textarea id="answer" class="alert info block mb"></textarea>
+    <button class="tappable block" onclick="app.run('answer')">Ответить</button>
+</template>
+
+<!-- Шаблон для экрана Показа ответа -->
+<template id="showanswer">
+    <p class="alert">Ваш счет: {{score}}</p>
+    <p>Загадка {{riddle.number}}</p>
+    <p class="alert info">
+        {{riddle.text}}
+    </p>
+    <p>Правильный ответ</p>
+    <h1>{{riddle.answer}}</h1>
+    <button class="tappable block" onclick="app.run('next')">Следующий вопрос</button>
+</template>
+
+<!--Шаблон для экрана Игра завершена-->
+<template id="over">
+    <p class="alert">Ваш счет: {{score}}</p>
+    <h1>Игра завершена</h1>
+    <button class="tappable block" onclick="app.go('standby');">Начать сначала</button>
+</template>
+
+</body>
+</html>
