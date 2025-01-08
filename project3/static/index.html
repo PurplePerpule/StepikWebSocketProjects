@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quiz</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/static/lariska.js"></script>
+    <script src="/static/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <section class="screen active card" id="app">
+                Загружаем
+        </section>
+    </div>
+</main>
+
+<template id="disconnect">
+    <h1>Соединение с сервером потеряно, приложение пытается восстановить связь</h1>
+</template>
+
+<template id="topics">
+    <h1 class="center">Айтишная викторина</h1>
+    <p class="center">Выберите тему и соревнуйтесь с другими участниками, кто лучше знает БАЗУ.</p>
+    <p class="center">Выберите тему</p>
+    <div class="topics">
+         {{#each topics}}
+            <div class="alert mb" onclick="app.run('pick_topic', { pk: {{this.pk}}, name: '{{this.name}}' } )">
+                <span class="name">{{this.name}}</span>
+                {{#if this.has_players}}
+                   <span class="status pull-right">ждет</span>
+                {{/if}}
+            </div>
+         {{/each}}
+    </div>
+</template>
+
+<template id="entering">
+    <span class="back-link block mb" onclick="app.run('back')">назад</span>
+    <div class="alert mb">Тема: {{ topic.name }}</div>
+    <h2 class="center">Как вас представить?</h2>
+    <input class="alert block mb" type="text" id="player_name" placeholder="Например, Алиса">
+    <button class="tappable block" onclick="app.run('join')">Подключиться к комнате</button>
+</template>
+
+<template id="searching">
+    <span class="back-link" onclick="app.run('back')">назад</span>
+    <h2 class="center">Идет поиск партнера для игры</h2>
+</template>
+
+<template id="playing">
+
+    <div class="row">
+        {{#each game.players}}
+           <div class="player_widget grow">
+               {{this.name}}:
+               <b>{{this.score}}</b>
+           </div>
+        {{/each}}
+    </div>
+    <p>Осталось вопросов: {{game.question_count}}. </p>
+
+    <div class="card alert mb">
+        {{game.current_question.text}}
+    </div>
+
+    <div id="questions_list">
+    {{#each game.current_question.options}}
+         <div class="alert info questions_option mb" onclick="app.run('answer',{{@index}})">{{@indexPlusOne}} {{this}}</div>
+    {{/each}}
+    </div>
+</template>
+
+<template id="results">
+    <h1 class="center">Результаты игры</h1>
+    <div class="row">
+        {{#each game.players}}
+        <div class="player_widget grow">
+            {{this.name}}:
+            <b>{{this.score}}</b>
+        </div>
+        {{/each}}
+    </div>
+    <button class="tappable block" onclick="app.go('topics')">Вернуться к темам</button>
+</template>
+
+</body>
+</html>
